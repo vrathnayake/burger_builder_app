@@ -33,11 +33,11 @@ const authReducer = (state = initialState, action) => {
         case actionTypes.AUTH_LOGOUT:
             return updateObject(state, {
                 token: null,
-                userId: null                
+                userId: null
             });
-            case actionTypes.SET_AUTH_PATH:
+        case actionTypes.SET_AUTH_PATH:
             return updateObject(state, {
-                authRedirect: action.path               
+                authRedirect: action.path
             });
         default: return state;
     };
