@@ -54,7 +54,7 @@ class ContactData extends Component {
         for (let formElemIndent in this.state.orderForm) {
             formData[formElemIndent] = this.state.orderForm[formElemIndent].value
         }
-        
+        console.log("userId in contact",this.props.userId);
         const order = {
             ingredients: this.props.ings,
             price: this.props.totPrice,
@@ -62,6 +62,7 @@ class ContactData extends Component {
             userId: this.props.userId
 
         }
+        
         this.props.onOrderBurger(order, this.props.token);
         
     }
