@@ -10,7 +10,6 @@ class Orders extends Component {
 
     componentDidMount() {
       this.props.onFetchOrders(this.props.token, this.props.userId);
-      console.log("ORDERS", this.props.orders);
     }
 
     render() {
