@@ -15,14 +15,11 @@ import { connect } from 'react-redux';
 class BurgerBuilder extends Component {
 
     state = {
-        purchasing: false,
-        
+        purchasing: false,     
     }
 
     componentDidMount() {
-        console.log(this.props);
-        this.props.onInitIngredients();
-        
+        this.props.onInitIngredients();       
     }
 
     purchaseHandler = () => {
@@ -32,7 +29,6 @@ class BurgerBuilder extends Component {
             this.props.onSetRedirectPath("/checkout");
             this.props.history.push("/auth");
         }
-        
     }
 
     purchaseCancelHandler = () => {
@@ -43,8 +39,7 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         this.props.onInitPurchase();
-        this.props.history.push('/checkout');
-            
+        this.props.history.push('/checkout');    
     }
 
     // You could also do this via redux
@@ -101,7 +96,6 @@ class BurgerBuilder extends Component {
             </AUX>
         );
     }
-
 }
 
 const mapStateToProps = state => {

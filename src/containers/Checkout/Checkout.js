@@ -14,7 +14,6 @@ class Checkout extends Component {
     }
 
     checkoutContinuedHandler = () => {
-        console.log('going to contact data', this.props.match.path);
         this.props.history.replace(this.props.match.path + '/contact-data/');
     }
 
@@ -34,7 +33,6 @@ class Checkout extends Component {
             );
         }
         return summery;
-
     }
 }
 

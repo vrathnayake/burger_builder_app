@@ -53,9 +53,6 @@ class Auth extends Component {
         }
     }
 
-    // Validation
-    
-
     inputChangedHandler = (event, controlName) => {
         const updateControls = {
             ...this.state.formcontrols,
@@ -73,7 +70,6 @@ class Auth extends Component {
     submithandler = (event) => {
         event.preventDefault();
         this.props.onAuth(this.state.formcontrols.email.value, this.state.formcontrols.password.value, this.state.inSignUp);
-
     }
 
     switchAuthModeHandler = () => {
@@ -114,7 +110,6 @@ class Auth extends Component {
         }
         let authRedirect = null;
         if (this.props.isAuth) {
-            console.log("AUTHREDIRECTPATH",this.props.authRedirectPath);
             authRedirect = <Redirect to={this.props.authRedirectPath} />
         }
         return (

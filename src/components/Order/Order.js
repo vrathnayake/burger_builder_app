@@ -6,9 +6,7 @@ const order = (props) => {
 
     for(let ingName in props.ingredients){
         ingredients.push({name:ingName,amount:props.ingredients[ingName]});
-
     }
-
     //now rturn a jsx 
 
     const ingOutput = ingredients.map((ing)=>{
@@ -16,8 +14,6 @@ const order = (props) => {
         style={{textTransform: 'capitalize', display:'inline-block', margin:'0 8px', border:'1px solid #eee', padding:'5px'}}
         key={ing.name}>{ing.name}({ing.amount})</span>;
     });
-    
-            
         
     return (
 

@@ -13,7 +13,6 @@ const burger = (props) => {
     },[]);
 
     if(arrayIngredients.length === 0){
-        console.log("check array length");
         arrayIngredients = <p>Please start adding ingredients!</p>
     }
 

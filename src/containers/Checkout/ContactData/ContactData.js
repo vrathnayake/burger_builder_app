@@ -6,36 +6,35 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import withErrorhandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as Orderactions from '../../../store/actions/index';
-import {checkValidity} from '../../../store/utility';
+import { checkValidity } from '../../../store/utility';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class ContactData extends Component {
     state = {
         orderForm: {
 
-            name: this.createBody('input', { type: 'text', placeholder: 'Your Name' },'', { required: true }, false),
-            street: this.createBody('input', { type: 'text', placeholder: 'Street' },'', { required: true }, false),
-            zip: this.createBody('input', { type: 'text', placeholder: 'Postal code' },'' ,{ required: true, minLen: 5, maxLen: 5, isNumeric:true }, false),
-            country: this.createBody('input', { type: 'text', placeholder: 'Country' },'', { required: true }, false),
-            email: this.createBody('input', { type: 'email', placeholder: 'e-mail' },'', { required: true, isEmail: true }, false),
+            name: this.createBody('input', { type: 'text', placeholder: 'Your Name' }, '', { required: true }, false),
+            street: this.createBody('input', { type: 'text', placeholder: 'Street' }, '', { required: true }, false),
+            zip: this.createBody('input', { type: 'text', placeholder: 'Postal code' }, '', { required: true, minLen: 5, maxLen: 5, isNumeric: true }, false),
+            country: this.createBody('input', { type: 'text', placeholder: 'Country' }, '', { required: true }, false),
+            email: this.createBody('input', { type: 'email', placeholder: 'e-mail' }, '', { required: true, isEmail: true }, false),
             deliveryMethod: this.createBody('select', {
                 options:
                     [
                         { value: 'fastest', displayValue: 'Fastest' },
                         { value: 'economy', displayValue: 'Economy' }
                     ]
-            },'fastest', {}, true)
+            }, 'fastest', {}, true)
         },
         isFormvalid: false
     }
     //helper method to create js body for the above form elements
     createBody(elType, config, defValue, rules, isValid) {
-        
-        
+
         return {
             elementType: elType,
-            elementConfig: config,            
+            elementConfig: config,
             value: defValue,
             validationRules: rules,
             valid: isValid,
@@ -43,31 +42,22 @@ class ContactData extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log("CONTACT DATA", this.props.totPrice);
-    }
-
     orderHandler = (event) => {
         //to prevent page reload so we can see console log
         event.preventDefault();
-        console.log(this.props.ings);
         const formData = {};
         for (let formElemIndent in this.state.orderForm) {
             formData[formElemIndent] = this.state.orderForm[formElemIndent].value
         }
-        console.log("userId in contact",this.props.userId);
         const order = {
             ingredients: this.props.ings,
             price: this.props.totPrice,
             orderData: formData,
             userId: this.props.userId
-
         }
-        
-        this.props.onOrderBurger(order, this.props.token);
-        
-    }
 
+        this.props.onOrderBurger(order, this.props.token);
+    }
 
     inputChangedHandler = (event, inputIdentifiyer) => {
         const updatedForm = {
@@ -82,12 +72,11 @@ class ContactData extends Component {
         updatedForm[inputIdentifiyer] = updatedFormElement;
 
         let formIsValid = true;
-        for(let formElemIdnt in updatedForm){
+        for (let formElemIdnt in updatedForm) {
             formIsValid = updatedForm[formElemIdnt].valid && formIsValid;
         }
 
-        console.log("form is valid", formIsValid);
-        this.setState({ orderForm: updatedForm, isFormvalid:formIsValid });
+        this.setState({ orderForm: updatedForm, isFormvalid: formIsValid });
     }
 
     render() {
@@ -115,7 +104,7 @@ class ContactData extends Component {
                 ))}
                 {/* go to the Button and set proprerty cos this is a custom button */}
                 <Button btnType="Success" disabled={!this.state.isFormvalid} > ORDER</Button>
-                
+
             </form>);
         if (this.props.loading) {
             form = <Spinner />;
@@ -131,7 +120,7 @@ class ContactData extends Component {
 }
 
 const mapStateToProps = state => {
-    return{
+    return {
         ings: state.burgerBuilder.ingredients,
         totPrice: state.burgerBuilder.totalPrice,
         loading: state.order.loading,
@@ -141,8 +130,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return{
-    onOrderBurger: (orderdata, token)=>dispatch(Orderactions.purchaseBurger(orderdata, token))
+    return {
+        onOrderBurger: (orderdata, token) => dispatch(Orderactions.purchaseBurger(orderdata, token))
     };
 }
-export default connect(mapStateToProps,mapDispatchToProps)(withErrorhandler(ContactData, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorhandler(ContactData, axios));

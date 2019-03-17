@@ -44,7 +44,5 @@ BurgerIngredient.porpTypes = {
     type: PorpTypes.string.isRequired
 };
 
-
-
 export default BurgerIngredient;
 
