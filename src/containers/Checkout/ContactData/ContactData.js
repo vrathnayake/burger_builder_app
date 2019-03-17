@@ -6,6 +6,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import withErrorhandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as Orderactions from '../../../store/actions/index';
+import {checkValidity} from '../../../store/utility';
 
 import {connect} from 'react-redux';
 
@@ -66,30 +67,7 @@ class ContactData extends Component {
         this.props.onOrderBurger(order, this.props.token);
         
     }
-    // Validation
-    ckeckValidity(value, rules) {
-        let isValid = true;
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
 
-        if(rules.minLen){
-            isValid = value.trim().length >= rules.minLen && isValid;
-        }
-        if(rules.maxLen){
-            isValid = value.trim().length <= rules.maxLen && isValid;
-        }
-        if(rules.isEmail){
-            const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-            isValid = pattern.test(value) && isValid;
-
-        }
-        if(rules.isNumeric){
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid;
-        }
-        return isValid;
-    }
 
     inputChangedHandler = (event, inputIdentifiyer) => {
         const updatedForm = {
@@ -99,7 +77,7 @@ class ContactData extends Component {
             ...updatedForm[inputIdentifiyer]
         };
         updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.ckeckValidity(updatedFormElement.value, updatedFormElement.validationRules);
+        updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validationRules);
         updatedFormElement.touched = true;
         updatedForm[inputIdentifiyer] = updatedFormElement;
 

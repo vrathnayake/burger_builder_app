@@ -6,6 +6,7 @@ import * as authActions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { Redirect } from 'react-router-dom';
+import {checkValidity} from '../../store/utility';
 
 
 class Auth extends Component {
@@ -53,29 +54,7 @@ class Auth extends Component {
     }
 
     // Validation
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLen) {
-            isValid = value.trim().length >= rules.minLen && isValid;
-        }
-        if (rules.maxLen) {
-            isValid = value.trim().length <= rules.maxLen && isValid;
-        }
-        if (rules.isEmail) {
-            const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-            isValid = pattern.test(value) && isValid;
-
-        }
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid;
-        }
-        return isValid;
-    }
+    
 
     inputChangedHandler = (event, controlName) => {
         const updateControls = {
@@ -83,7 +62,7 @@ class Auth extends Component {
             [controlName]: {
                 ...this.state.formcontrols[controlName],
                 value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.formcontrols[controlName].validation),
+                valid: checkValidity(event.target.value, this.state.formcontrols[controlName].validation),
                 touched: true
             }
         };
